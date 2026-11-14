@@ -16,6 +16,8 @@ Your code stays in your own repo, and no laptop is needed.
 
 ## Status
 
+The full plan is in [docs/plan.md](docs/plan.md).
+
 Just getting started. Everything above is planned.
 
 ## Licence
