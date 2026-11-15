@@ -18,6 +18,8 @@ Your code stays in your own repo, and no laptop is needed.
 
 The full plan is in [docs/plan.md](docs/plan.md).
 
+The landing page lives in [site/](site/); see [docs/deploy-landing-page.md](docs/deploy-landing-page.md) for deploying it on Vercel.
+
 Just getting started. Everything above is planned.
 
 ## Licence
