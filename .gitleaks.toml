@@ -1,0 +1,15 @@
+title = "OpenPocket gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Documentation that names secret patterns, and the shared fake placeholders"
+paths = [
+  '''(^|/)package-lock\.json$''',
+]
+regexes = [
+  '''example-project-123''',
+  '''preview-test@viber\.invalid''',
+  '''<[A-Z_]+>''',
+]

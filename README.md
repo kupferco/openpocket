@@ -22,6 +22,10 @@ The landing page lives in [site/](site/); see [docs/deploy-landing-page.md](docs
 
 Just getting started. Everything above is planned.
 
+## Secrets
+
+Never commit secrets. Use environment variables and git-ignored `.env` files; CI scans every push with gitleaks. See [CONTRIBUTING.md](CONTRIBUTING.md#secrets).
+
 ## Licence
 
 Open source under the [MIT licence](LICENSE).

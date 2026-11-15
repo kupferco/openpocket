@@ -95,6 +95,7 @@ Do these at the point named; the tasks that need them say so under "Dani: manual
 - **Brief:** Remove personal and project-specific data from the tree. Replace the owner's email and `noreply@` sender defaults (`.env.example`, `config.ts`, `scripts/deploy.sh`) with empty/required values; email notifications are off unless `NOTIFY_EMAIL` and `NOTIFY_FROM` are set. Replace the personal name in comments and user-facing strings with "the owner" and add an `OWNER_NAME` setting (default "the owner") used by those strings and the CLAUDE.md block written into apps. Replace real fixtures (the other GCP project id, deployer service account, evidence bucket) with `example-project-123` and `myapp-deployer@example-project-123.iam.gserviceaccount.com`. Replace real project names (Housekeeper, TeraPay, the lv-notas repo, Pond) in tests, UI placeholders, README and MCP descriptions with neutral ones (`acme/webapp`, "Webshop"); drop the TeraPay README line and the Housekeeper legacy-marker branch in `onboard.ts`. Add a CI-runnable test or script that greps the tree for the removed terms and fails if they come back.
 - **Done when:** a repo-wide search for the personal email, personal name, other-project ids and real project names finds nothing outside git history; typecheck, tests and build pass; behaviour is otherwise unchanged.
 - **Dani: manual steps:** none (do the 0.2 scan and secret rotation yourself first).
+- **Porting rule (applies to every task that ports code from Viber):** strip project-specific secrets, URLs, IDs and Dani's personal config; replace them with env vars and a documented `.env.example`. Run gitleaks (CI does) before the last commit.
 
 ## T2: One config approach
 - **depends_on:** T1 (after_live)
@@ -370,6 +371,7 @@ Do these at the point named; the tasks that need them say so under "Dani: manual
 - **Brief:** Run the existing Express app as a Vercel function with one runtime-neutral handler; move cron-style work to Vercel Cron plus webhook pokes calling the T8 job runner (every minute on Pro, slower on Hobby, documented); secrets in Vercel env; Neon for the OpenPocket DB. Replace the Cloud Run preview pattern (`viber-preview-<n>` and `seed.ts`) with Vercel preview + a Neon branch per PR (dogfooding T25 to T28 flow) with `OPENPOCKET_ENV=preview`, no GitHub writes and no notifications, and the preview test login rules in `CLAUDE.md`. Keep the Node `server.ts` adapter until Viber is retired (T50). Add the `vercel.json` and a `deploy` workflow gated on repo variables so forks self-skip.
 - **Done when:** the app builds and passes tests as a function locally (Vercel CLI dev), the job runner is driven by cron and webhooks, and nothing relies on in-memory state between requests.
 - **Dani: manual steps:** create the Vercel projects `personal-staging`, `personal-prod` and the Neon project for the personal instance (per decision 27, separate from hosted), connect the repo, and set the env vars listed in `.env.example`.
+- **Porting rule:** strip project-specific secrets, URLs, IDs and Dani's personal config; replace them with env vars and a documented `.env.example`.
 
 ## T40: Deploy to Vercel button
 - **depends_on:** T39 (after_live)
@@ -395,6 +397,7 @@ Do these at the point named; the tasks that need them say so under "Dani: manual
 - **Brief:** Prepare what `openpocket-private` needs: a `scripts/export-tree.sh` that produces the scrubbed tree (`git archive`, no history) for the first commit, an `overlay/` directory (personal `CLAUDE.private.md`, config) with docs, and CI workflows for the private repo pointing at Vercel + Neon (preview per PR, `personal-staging` on `main`, `personal-prod` promoted by hand with the spoken code). Document the environments mapping from 14.1.
 - **Done when:** running the export script yields a tree that passes gitleaks and the T1 term check; workflows are parameterised by repo variables.
 - **Dani: manual steps:** create the private repo `kupferco/openpocket-private`, run the export script, make the initial commit with the Daniel Kupfer + GitHub no-reply identity, push it, add the overlay and secrets, point a Viber project at it.
+- **Porting rule:** strip project-specific secrets, URLs, IDs and Dani's personal config; replace them with env vars and a documented `.env.example`.
 
 ## T43: publish.sh and sync-down
 - **depends_on:** T42 (after_live)
