@@ -1,0 +1,22 @@
+# Secrets and local config: never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+id_rsa*
+id_ed25519*
+service-account*.json
+*-credentials.json
+credentials.json
+.npmrc
+.vercel
+.claude/settings.local.json
+
+# Dependencies and build output
+node_modules/
+dist/
+.DS_Store
